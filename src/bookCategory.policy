@@ -1,0 +1,5 @@
+grant {
+    permission security.BookCategoryPermission "2", "book";
+    permission security.BookCategoryPermission "1", "literary";
+    permission security.BookCategoryPermission "3", "teaching";
+};

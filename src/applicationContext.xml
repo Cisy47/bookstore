@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:amq="http://activemq.apache.org/schema/core"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/data/mongo
+      	 http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
+         http://www.springframework.org/schema/tx
+         http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+         http://www.springframework.org/schema/jms
+         http://www.springframework.org/schema/jms/spring-jms.xsd
+         http://activemq.apache.org/schema/core
+         http://activemq.apache.org/schema/core/activemq-core.xsd">
+
+     <!--MongoDB 配置 -->
+    <mongo:mongo host="127.0.0.1" port="27017" />
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg ref="mongo"/>
+        <constructor-arg name="databaseName" value="test"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+
+    <!-- 定义事务管理器（声明式的事务） -->
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref ="sessionFactory" />
+    </bean>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver">
+        </property>
+        <property name="url" value="jdbc:mysql://localhost:3306/bookstore">
+        </property>
+        <property name="username" value="root"></property>
+        <property name="password" value="4747"></property>
+    </bean>
+
+    <!--sessionFactory-->
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource">
+            <ref bean="dataSource" />
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">
+                    org.hibernate.dialect.MySQL5Dialect
+                </prop>
+            </props>
+        </property>
+        <property name="configLocation">
+            <value>classpath:/hibernate.cfg.xml</value>
+        </property>
+    </bean>
+
+    <!--JMS-->
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="connectionFactory"/>
+    </bean>
+
+    <!--amq:connectionFactory id="amqConnectionFactory" brokerURL="tcp://localhost:61616"/-->
+
+    <bean id="connectionFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="tcp://localhost:61616" />
+    </bean>
+
+    <!-- 发送消息的目的地（一个队列） -->
+    <bean id="requestDestination" class="org.apache.activemq.command.ActiveMQQueue">
+        <!-- 设置消息队列的名字 -->
+        <constructor-arg index="0" value="requestQueue" />
+    </bean>
+
+    <!-- 应答消息的目的地（一个队列） -->
+    <bean id="replyDestination" class="org.apache.activemq.command.ActiveMQQueue">
+        <!-- 设置消息队列的名字 -->
+        <constructor-arg index="0" value="replyQueue" />
+    </bean>
+
+    <!-- 消息生产者 -->
+    <bean id="producer" class="method.OrderProcessAction">
+        <property name="jmsTemplate" ref="jmsTemplate" />
+        <property name="requestDestination" ref="requestDestination" />
+        <property name="replyDestination" ref="replyDestination" />
+        <property name="userBiz" ref="userBiz"/>
+    </bean>
+
+    <!-- 消息消费者 -->
+    <bean id="consumer" class="Message.OrderMessageListener">
+        <property name="jmsTemplate" ref="jmsTemplate" />
+        <property name="userBiz" ref="userBiz"/>
+        <property name="orderBiz" ref="orderBiz"/>
+    </bean>
+
+    <!-- 监听容器 -->
+    <bean id="jmsContainerRequest" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="destination" ref="requestDestination" />
+        <property name="messageListener" ref="consumer" />
+    </bean>
+
+    <!-- IoC Dao -->
+    <bean id = "userDao" class="Dao.UserDaoImp" scope="singleton">
+        <property name="mongoTemplate" ref="mongoTemplate"/>
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id = "bookDao" class="Dao.BookDaoImp" scope="singleton">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+    <bean id = "orderDao" class="Dao.OrderDaoImp" scope="singleton"></bean>
+
+    <!-- IoC Biz -->
+    <bean id="userBiz" class="Biz.UserBizImp"  >
+        <property name="userDao">
+            <ref bean="userDao"/>
+        </property>
+    </bean>
+    <bean id="BookBiz" class="Biz.BookBizImp">
+        <property name="bookDao">
+            <ref bean="bookDao"/>
+        </property>
+    </bean>
+    <bean id="orderBiz" class="Biz.OrderBizImp">
+        <property name="orderDao">
+            <ref bean="orderDao"/>
+        </property>
+        <property name="bookDao">
+            <ref bean="bookDao"/>
+        </property>
+        <property name="bookBiz">
+            <ref bean="BookBiz"/>
+        </property>
+        <property name="userBiz">
+            <ref bean="userBiz"/>
+        </property>
+    </bean>
+
+    <!--counter-->
+    <bean id="countBean" class="Entity.Counter" scope="singleton"></bean>
+    <bean id="countAction" class="method.CountAction">
+        <property name="counter" ref="countBean"/>
+    </bean>
+
+    <!-- IoC Action -->
+    <bean id="loginAction" class="method.LoginAction" >
+        <property name="userBiz" ref="userBiz"/>
+    </bean>
+    <bean id="registerAction" class="method.RegisterAction" scope="prototype">
+        <property name="userBiz" ref="userBiz"/>
+    </bean>
+    <bean id="OrderAction" class="method.OrderAction" scope="prototype">
+        <property name="orderBiz" ref="orderBiz"/>
+        <property name="userBiz" ref="userBiz"/>
+    </bean>
+    <bean id="searchBookAction" class="method.SearchBookAction" scope="prototype">
+        <property name="bookBiz" ref="BookBiz"/>
+    </bean>
+    <bean id="showCartAction" class="method.ShowCartAction" scope="session">
+        <property name="bookBiz" ref="BookBiz"/>
+    </bean>
+    <bean id="showAllBookAction" class="method.ShowAllBookAction" scope="singleton">
+        <property name="bookBiz" ref="BookBiz"/>
+        <property name="userBiz" ref="userBiz"/>
+    </bean>
+    <bean id="personalStatisticAction" class="method.PersonalStatisticAction" scope="prototype">
+        <property name="orderBiz" ref="orderBiz"/>
+    </bean>
+
+    <bean id="modifyUserProfileAction" class="method.ModifyUserProfileAction" scope="prototype">
+        <property name="userBiz" ref="userBiz"/>
+    </bean>
+    <bean id="removeUserProfileAction" class="method.RemoveUserProfileAction" scope="prototype">
+        <property name="userBiz" ref="userBiz"/>
+    </bean>
+    <bean id="showUserProfileAction" class="method.ShowUserProfileAction" scope="prototype">
+        <property name="userBiz" ref="userBiz"/>
+    </bean>
+    <bean id="showUserPhotoAction" class="method.ShowUserPhotoAction" scope="prototype">
+        <property name="userBiz" ref="userBiz"/>
+    </bean>
+    <bean id="addUserPhotoAction" class="method.AddUserPhotoAction" scope="prototype">
+        <property name="userBiz" ref="userBiz"/>
+    </bean>
+
+    <!-- manager -->
+    <bean id="removeUserAction" class="method.RemoveUserAction" scope="prototype">
+        <property name="userBiz" ref="userBiz"/>
+    </bean>
+    <bean id="removeBookAction" class="method.RemoveBookAction" scope="prototype">
+        <property name="bookBiz" ref="BookBiz"/>
+    </bean>
+    <bean id="addUserAction" class="method.UserAction" scope="prototype">
+        <property name="userBiz" ref="userBiz"/>
+    </bean>
+    <bean id="bookAction" class="method.BookAction" >
+        <property name="bookBiz" ref="BookBiz"/>
+    </bean>
+
+    <bean id="showUserAction" class="method.ShowUserAction" scope="prototype">
+        <property name="userBiz" ref="userBiz"/>
+    </bean>
+    <bean id="statisticsByDateAction" class="method.StatisticsByDateAction" scope="prototype">
+        <property name="orderBiz" ref="orderBiz"/>
+    </bean>
+    <bean id="showBookToManagerAction" class="method.ShowBookToManagerAction" scope="prototype">
+        <property name="bookBiz" ref="BookBiz"/>
+    </bean>
+
+
+</beans>

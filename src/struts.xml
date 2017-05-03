@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.action.excludePattern" value="ws://.*"/>
+	<constant name="struts.action.excludePattern" value="/websocketbot"/>
+
+	<package name="basicstruts2" extends="struts-default, json-default" >
+
+		<action name="default">
+			<result>index.jsp</result>
+		</action>
+		<!-- Ajax page login & register -->
+		<action name="Login" class="loginAction">
+			<result name="success" type="json">
+				<param name="root">content</param>
+			</result>
+		</action>
+		<action name="logout" class="method.LogoutAction">
+			<result name="success" >
+				noAuth/Welcome.jsp
+			</result>
+		</action>
+		<action name="AccountCheck" class="method.IsExistedAccountAction">
+			<result name="success" type="json">
+				<param name="root">content</param>
+			</result>
+		</action>
+		<action name="RegisterAction" class="method.RegisterAction">
+			<result name="success" type="json">
+				<param name="root">content</param>
+			</result>
+		</action>
+
+		<!-- Ajax page p.s. Don't need logined-->
+		<action name="showAllBook" class="showAllBookAction">
+			<result name="success">
+				/normalPage/SearchBookModel.jsp
+			</result>
+		</action>
+        <action name="showCategoryBook" class="showAllBookAction" method="showCategoryBook">
+            <result name="success">
+                SearchBookModel.jsp
+            </result>
+        </action>
+		<action name="getUser" class="addUserAction" method="getUser">
+			<result  type="json">
+				<param name="root">content</param>
+			</result>
+		</action>
+
+		<!-- Ajax json -->
+		<action name="addBookToCart" class="showCartAction" method="addBook">
+			<result type="json">
+				<param name="root">content</param>
+			</result>
+		</action>
+
+		<action name="counterTest" class="countAction">
+			<result name="success" >
+				CounterPage.jsp
+			</result>
+		</action>
+
+		<!-- Ajax page -->
+		<action name="showCart" class="showCartAction" method="showCart">
+			<result name="finish" type="json">
+				<param name="root">content</param>
+			</result>
+			<!--result name="continue">ShopCartModel.jsp</result-->
+            <result name="success">ShopCartModel.jsp</result>
+		</action>
+
+		<action name="searchBook" class="searchBookAction">
+			<result name="finish" type="json">
+				<param name="root">content</param>
+			</result>
+			<result name="continue">BuyBookModel.jsp</result>
+		</action>
+		<action name="showOrder" class="OrderAction">
+			<result name="finish" type="json">
+				<param name="root">content</param>
+			</result>
+			<result name="continue">Order.jsp</result>
+		</action>
+		<action name="personalStatistic" class="personalStatisticAction">
+			<result name="continue">normalPage/StatisticsModel.jsp</result>
+		</action>
+		<action name="createOrder" class="method.OrderProcessAction" >
+			<result name="error" type="json">
+				<param name="root">content</param>
+			</result>
+            <result name="success" type="json">
+                <param name="root">content</param>
+            </result>
+		</action>
+
+		<action name="bookDetail" class="bookAction" method="bookDetail">
+			<result type="json">
+				<param name="root">content</param>
+			</result>
+		</action>
+		<action name="modifyUserProfile" class="modifyUserProfileAction">
+			<result type="json">
+				<param name="root">content</param>
+			</result>
+		</action>
+		<action name="removeUserProfile" class="removeUserProfileAction">
+			<result type="json">
+				<param name="root">content</param>
+			</result>
+		</action>
+		<action name="showUserProfile" class="showUserProfileAction">
+			<result type="json">
+				<param name="root">content</param>
+			</result>
+		</action>
+		<action name="addUserProfile" class="method.UserAction" method="addUserProfile">
+			<result type="json">
+				<param name="root">content</param>
+			</result>
+		</action>
+		<action name="showUserPhoto" class="showUserPhotoAction">
+			<result type="stream">
+				<param name="inputName">stream</param>
+				<param name="contentType">image/jpeg</param>
+			</result>
+		</action>
+		<action name="addUserPhoto" class="addUserPhotoAction">
+			<result name="success" type="redirect">
+                normalPage/Info.jsp
+			</result>
+		</action>
+
+		<!-- Ajax page (manager) -->
+		<action name="modifyUser" class="method.UserAction" method="modifyUser">
+			<result type="json">
+				<param name="root">content</param>
+			</result>
+		</action>
+		<action name="modifyBook" class="bookAction" method="modifyBook">
+			<result type="json">
+				<param name="root">content</param>
+			</result>
+		</action>
+		<action name="removeUser" class="removeUserAction">
+			<result type="json">
+				<param name="root">content</param>
+			</result>
+		</action>
+		<action name="removeBook" class="removeBookAction">
+			<result  type="json">
+				<param name="root">content</param>
+			</result>
+		</action>
+		<action name="addUser" class="addUserAction">
+			<result type="json">
+				<param name="root">content</param>
+			</result>
+		</action>
+		<action name="addBook" class="addBookAction">
+			<result type="json">
+				<param name="root">content</param>
+			</result>
+		</action>
+
+		<action name="showUser" class="showUserAction">
+			<result name="success" >UserModel.jsp</result>
+        </action>
+
+		<action name="changePassword" class="method.UserAction" method="changePassword">
+			<result type="json">
+				<param name="root">content</param>
+			</result>
+		</action>
+        <action name="statisticsByDate" class="statisticsByDateAction">
+            <result name="finish" type="json">
+                <param name="root">content</param>
+            </result>
+            <result name="continue">normalPage/StatisticsByDateModel.jsp</result>
+        </action>
+		<action name="showBookToManager" class="showBookToManagerAction">
+			<result name="success">noAuth/BookModel.jsp</result>
+		</action>
+
+	</package>
+
+</struts>

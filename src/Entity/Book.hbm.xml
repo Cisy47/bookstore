@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="Entity.Book" table="books" lazy="false">
+		<id name="id" column="id">
+			<generator class="increment"/>
+		</id>
+		<property name="name"/>
+		<property name="author"/>
+		<property name="publisher"/>
+		<property name="price"/>
+		<property name="stock"/>
+		<property name="type"/>
+		<property name="popularity"/>
+	</class>
+</hibernate-mapping>
