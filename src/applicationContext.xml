@@ -3,19 +3,27 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:mongo="http://www.springframework.org/schema/data/mongo"
        xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:amq="http://activemq.apache.org/schema/core"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
          http://www.springframework.org/schema/data/mongo
       	 http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
          http://www.springframework.org/schema/tx
          http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
-         http://www.springframework.org/schema/jms
-         http://www.springframework.org/schema/jms/spring-jms.xsd
-         http://activemq.apache.org/schema/core
-         http://activemq.apache.org/schema/core/activemq-core.xsd">
+         http://www.springframework.org/schema/aop
+         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd">
 
-     <!--MongoDB 配置 -->
+    <context:component-scan base-package="functional.Log"></context:component-scan>
+    <aop:aspectj-autoproxy/>
+    <!--bean id="logAspectBean" class="functional.Log.LogAspect">
+        <property name="log" value="LogBean"/>
+    </bean-->
+    <!--bean id="logBean" class="functional.Log.LogWriter" scope="singleton"/-->
+
+    <!--MongoDB 配置 -->
     <mongo:mongo host="127.0.0.1" port="27017" />
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
         <constructor-arg ref="mongo"/>
@@ -68,6 +76,10 @@
         <property name="brokerURL" value="tcp://localhost:61616" />
     </bean>
 
+    <!--Aop-->
+    <!--aop:aspectj-autoproxy/-->
+    <!--bean id="LogAspectBean" class="functional.Log.LogAspect" ></bean-->
+
     <!-- 发送消息的目的地（一个队列） -->
     <bean id="requestDestination" class="org.apache.activemq.command.ActiveMQQueue">
         <!-- 设置消息队列的名字 -->
@@ -89,7 +101,7 @@
     </bean>
 
     <!-- 消息消费者 -->
-    <bean id="consumer" class="Message.OrderMessageListener">
+    <bean id="consumer" class="functional.Message.OrderMessageListener">
         <property name="jmsTemplate" ref="jmsTemplate" />
         <property name="userBiz" ref="userBiz"/>
         <property name="orderBiz" ref="orderBiz"/>
@@ -160,7 +172,7 @@
     <bean id="searchBookAction" class="method.SearchBookAction" scope="prototype">
         <property name="bookBiz" ref="BookBiz"/>
     </bean>
-    <bean id="showCartAction" class="method.ShowCartAction" scope="session">
+    <bean id="showCartAction" class="method.CartAction" scope="session">
         <property name="bookBiz" ref="BookBiz"/>
     </bean>
     <bean id="showAllBookAction" class="method.ShowAllBookAction" scope="singleton">

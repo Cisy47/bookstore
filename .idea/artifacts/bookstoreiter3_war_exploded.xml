@@ -7,12 +7,46 @@
           <element id="module-output" name="bookstoreiter3" />
         </element>
         <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.ext:jersey-spring3:2.23.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.core:jersey-server:2.23.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.core:jersey-client:2.23.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.media:jersey-media-jaxb:2.23.1" />
+          <element id="library" level="project" name="Maven: javax.annotation:javax.annotation-api:1.2" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-api:2.4.0-b34" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2.external:aopalliance-repackaged:2.4.0-b34" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-locator:2.4.0-b34" />
+          <element id="library" level="project" name="Maven: org.javassist:javassist:3.18.1-GA" />
+          <element id="library" level="project" name="Maven: javax.validation:validation-api:1.1.0.Final" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2:2.4.0-b34" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-utils:2.4.0-b34" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2:config-types:2.4.0-b34" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-core:2.4.0-b34" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-config:2.4.0-b34" />
+          <element id="library" level="project" name="Maven: org.jvnet:tiger-types:1.4" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2.external:bean-validator:2.4.0-b34" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-runlevel:2.4.0-b34" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2:class-model:2.4.0-b34" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2.external:asm-all-repackaged:2.4.0-b34" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2:spring-bridge:2.4.0-b34" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.containers:jersey-container-servlet:2.23.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.core:jersey-common:2.23.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.bundles.repackaged:jersey-guava:2.23.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2:osgi-resource-locator:1.0.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.containers:jersey-container-servlet-core:2.23.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2.external:javax.inject:2.4.0-b34" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.media:jersey-media-json-jackson:2.6" />
+          <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.13" />
+          <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.13" />
+          <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-jaxrs:1.9.13" />
+          <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-xc:1.9.13" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.media:jersey-media-multipart:2.6" />
+          <element id="library" level="project" name="Maven: org.jvnet.mimepull:mimepull:1.9.3" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.ext:jersey-entity-filtering:2.6" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.6.4" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-log4j12:1.6.4" />
           <element id="library" level="project" name="Maven: log4j:log4j:1.2.16" />
           <element id="library" level="project" name="Maven: org.apache.struts:struts2-core:2.3.24.1" />
           <element id="library" level="project" name="Maven: org.apache.struts.xwork:xwork-core:2.3.24.1" />
-          <element id="library" level="project" name="Maven: asm:asm:3.3" />
           <element id="library" level="project" name="Maven: asm:asm-commons:3.3" />
           <element id="library" level="project" name="Maven: asm:asm-tree:3.3" />
           <element id="library" level="project" name="Maven: org.freemarker:freemarker:2.3.22" />
@@ -24,6 +58,7 @@
           <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.2" />
           <element id="library" level="project" name="Maven: javax.inject:javax.inject:1" />
           <element id="library" level="project" name="Maven: org.glassfish:javax.json:1.0.4" />
+          <element id="library" level="project" name="Maven: javax.ws.rs:javax.ws.rs-api:2.0.1" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context:4.0.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.0.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-core:4.0.4.RELEASE" />
@@ -72,6 +107,10 @@
           <element id="library" level="project" name="Maven: org.springframework.data:spring-data-commons:1.10.0.RELEASE" />
           <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.10" />
           <element id="library" level="project" name="Maven: org.springframework.data:spring-data-mongodb-log4j:1.7.0.RELEASE" />
+          <element id="library" level="project" name="Maven: cglib:cglib:2.2" />
+          <element id="library" level="project" name="Maven: asm:asm:3.1" />
+          <element id="library" level="project" name="Maven: org.aspectj:aspectjrt:1.8.10" />
+          <element id="library" level="project" name="Maven: org.aspectj:aspectjweaver:1.8.10" />
         </element>
       </element>
       <element id="directory" name="META-INF">

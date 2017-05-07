@@ -5,14 +5,11 @@
 <struts>
 	<constant name="struts.objectFactory" value="spring" />
 	<constant name="struts.devMode" value="false" />
-	<constant name="struts.action.excludePattern" value="ws://.*"/>
 	<constant name="struts.action.excludePattern" value="/websocketbot"/>
+	<constant name="struts.action.excludePattern" value="/rest/*"/>
 
 	<package name="basicstruts2" extends="struts-default, json-default" >
 
-		<action name="default">
-			<result>index.jsp</result>
-		</action>
 		<!-- Ajax page login & register -->
 		<action name="Login" class="loginAction">
 			<result name="success" type="json">
@@ -53,7 +50,7 @@
 		</action>
 
 		<!-- Ajax json -->
-		<action name="addBookToCart" class="showCartAction" method="addBook">
+		<action name="addBookToCart" class="method.CartAction" method="addBook">
 			<result type="json">
 				<param name="root">content</param>
 			</result>
@@ -66,7 +63,7 @@
 		</action>
 
 		<!-- Ajax page -->
-		<action name="showCart" class="showCartAction" method="showCart">
+		<action name="showCart" class="method.CartAction" method="showCart">
 			<result name="finish" type="json">
 				<param name="root">content</param>
 			</result>

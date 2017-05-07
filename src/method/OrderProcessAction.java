@@ -83,7 +83,7 @@ public class OrderProcessAction extends ActionSupport {
             content = json.toString();
             return ERROR;
         }
-        userBiz.verUserPayPass(user.getUsername(),payPass);
+        //userBiz.verUserPayPass(user.getUsername(),payPass);
         String message="";
         //user Id
         message+=user.getUsername()+"@";

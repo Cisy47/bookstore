@@ -8,6 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ page import="Entity.Book" %>
+<%@ page import="com.mongodb.util.JSON" %>
 <%@ page import="java.util.HashMap" %>
 
 <%
@@ -43,6 +44,13 @@
                     });
                 }
             });
+            /*var id =$("#search-content").val().toString();
+            $.ajax({
+                url:"localhost:8080/Book/"+id,
+                success: function(data){
+                    $("#books").html(data);
+                }
+            })*/
         });
         $("div#hidden").hide();
         $('[data-toggle="popover"]').popover({

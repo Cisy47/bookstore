@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * Created by 47 on 2016/6/9.
  */
-public class ShowCartAction extends ActionSupport {
+public class CartAction extends ActionSupport {
     ArrayList<ShopCartItem> arrayList;
     HashMap<Integer,Integer> cartSearch;
     HashMap<Book,Integer> cart;

@@ -37,7 +37,7 @@ public class MessageDecoder implements Decoder.Text<Message> {
     @Override
     public void destroy() { }
     
-    /* Create a new Message object if the message can be decoded */
+    /* Create a new functional.Message object if the message can be decoded */
     @Override
     public Message decode(String string) throws DecodeException {
         Message msg = null;
@@ -51,7 +51,7 @@ public class MessageDecoder implements Decoder.Text<Message> {
                         messageMap.get("message"));
             }
         } else {
-            throw new DecodeException(string, "[Message] Can't decode.");
+            throw new DecodeException(string, "[functional.Message] Can't decode.");
         }
         return msg;
     }

@@ -108,14 +108,15 @@
 		var name=prompt("请输入付款密码","");
 		if (name!=null && name != "")
 		{
-			var encrypt = new JSEncrypt();
+			/*var encrypt = new JSEncrypt();
 			encrypt.setPublicKey(publicKey);
 			var password  = encrypt.encrypt(name);
 			//提交之前，检查是否已经加密。假设用户的密码不超过20位，加密后的密码不小于20位
-			if(password.length < 20) {
+			/if(password.length < 20) {
 				alert("encryption failed");
 			}
-			createOrder(password);
+			createOrder(password);*/
+			createOrder(name);
 		}
 	}
 </script>

@@ -1,4 +1,4 @@
-package Message;
+package functional.Message;
 
 import Biz.OrderBiz;
 import Biz.UserBiz;
@@ -59,7 +59,7 @@ public class OrderMessageListener implements MessageListener {
                 throw new RuntimeException(ex);
             }
         } else {
-            throw new IllegalArgumentException("Message must be of type TextMessage");
+            throw new IllegalArgumentException("functional.Message must be of type TextMessage");
         }
 
     }
