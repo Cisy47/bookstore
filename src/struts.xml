@@ -7,6 +7,7 @@
 	<constant name="struts.devMode" value="false" />
 	<constant name="struts.action.excludePattern" value="/websocketbot"/>
 	<constant name="struts.action.excludePattern" value="/rest/*"/>
+	<constant name="struts.custom.i18n.resources" value="resources/i18n/nav"/>
 
 	<package name="basicstruts2" extends="struts-default, json-default" >
 

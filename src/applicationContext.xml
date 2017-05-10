@@ -18,10 +18,6 @@
 
     <context:component-scan base-package="functional.Log"></context:component-scan>
     <aop:aspectj-autoproxy/>
-    <!--bean id="logAspectBean" class="functional.Log.LogAspect">
-        <property name="log" value="LogBean"/>
-    </bean-->
-    <!--bean id="logBean" class="functional.Log.LogWriter" scope="singleton"/-->
 
     <!--MongoDB 配置 -->
     <mongo:mongo host="127.0.0.1" port="27017" />

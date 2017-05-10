@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app id="WebApp_9" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+<web-app id="WebApp_9" version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
     <display-name>Bookstore</display-name>
+
+    <jsp-config>
+        <taglib>
+            <taglib-uri>/struts-tags</taglib-uri>
+            <taglib-location>/webapp/WEB-INF/lib/struts-tags.tld</taglib-location>
+        </taglib>
+    </jsp-config>
 
     <!--log4j配置文件加载-->
     <context-param>
@@ -85,12 +96,7 @@
         <realm-name>Bookstore Login</realm-name>
     </login-config>
 
-    <jsp-config>
-        <taglib>
-            <taglib-uri>/struts-tags</taglib-uri>
-            <taglib-location>/webapp/WEB-INF/lib/struts-tags.tld</taglib-location>
-        </taglib>
-    </jsp-config>
+
 
 
 
