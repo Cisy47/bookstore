@@ -1,24 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b42121ac-5a8d-4efb-8535-5d4f92d0ff8a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/WEB-INF/service.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/jsp/dict/js/soapclient.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/functional/RESTful/RestJaxRsApplication.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/resources/i18n/nav.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/resources/i18n/nav_en.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/resources/i18n/nav_zh.properties" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/functional/RESTful/BookResource.java" afterPath="$PROJECT_DIR$/src/functional/WebService/RESTful/BookResource.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bookstoreiter3.iml" afterPath="$PROJECT_DIR$/bookstoreiter3.iml" />
-    </list>
+    <list default="true" id="b42121ac-5a8d-4efb-8535-5d4f92d0ff8a" name="Default" comment="" />
     <ignored path="SSHSample.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -1144,7 +1127,7 @@
       <option name="presentableId" value="Default" />
       <updated>1494426526290</updated>
       <workItem from="1494426531025" duration="2183000" />
-      <workItem from="1494740876020" duration="479000" />
+      <workItem from="1494740876020" duration="628000" />
     </task>
     <servers />
   </component>
@@ -1175,7 +1158,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2662000" />
+    <option name="totallyTimeSpent" value="2811000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
