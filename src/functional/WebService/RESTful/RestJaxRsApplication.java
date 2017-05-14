@@ -1,5 +1,6 @@
-package functional.RESTful;
+package functional.WebService.RESTful;
 
+import functional.WebService.RESTful.BookResource;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;

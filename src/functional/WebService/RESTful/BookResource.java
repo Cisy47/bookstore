@@ -1,4 +1,4 @@
-package functional.RESTful;
+package functional.WebService.RESTful;
 
 import Dao.BookDao;
 import Entity.Book;
