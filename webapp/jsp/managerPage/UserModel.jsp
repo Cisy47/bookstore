@@ -112,7 +112,10 @@
 			</div>
 	<div class="span3">
 			<button class="btn btn-primary btn-success" onclick="showAdd()">添加用户</button>
-		</div>
+	</div>
+	<div class="span3">
+		<input class="">
+	</div>
 </div>
 <table class="table">
 	<tr>
