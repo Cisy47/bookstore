@@ -21,6 +21,8 @@
 %>
 
 <%@include file="../managerPage/ManagerNavbar.jsp" %>
+<script type="text/javascript" src="../dict/js/soap.js"></script>
+<script type="text/javascript" src="../dict/js/soapclient.js"></script>
 
 <script type="text/javascript">
 	function submit(){
@@ -102,19 +104,63 @@
 				$(this).find(".mouse-over-show").css("visibility","hidden");
 			});	
 	});
+	function test() {
+		if (window.ActiveXObject) {
+			xhr = new ActiveXObject("Microsoft.XMLHTTP");
+		} else {
+			xhr = new XMLHttpRequest();
+		}
+		//指定请求地址
+		var url = "http://localhost:8080/service/UserService";
+		//定义请求类型和地址和异步
+		xhr.open("POST", url, true);
+		//设置Content-Type
+		xhr.setRequestHeader("Content-Type", "text/xml;charset=UTF-8");
+		//指定回调方法
+		xhr.onreadystatechange = function () {
+		   if(xhr.readyState==4&&xhr.status==200) {
+			   $("#s_username").html(xhr.responseXML.getElementsByTagName("username")[0].textContent);
+			   $("#s_password").html(xhr.responseXML.getElementsByTagName("password")[0].textContent);
+			   $("#s_coin").html(xhr.responseXML.getElementsByTagName("coin")[0].textContent);
+			   $("#s_role").html(xhr.responseXML.getElementsByTagName("role")[0].textContent);
+			   $("#s_email").html(xhr.responseXML.getElementsByTagName("email")[0].textContent);
+			   $("#s_tel").html(xhr.responseXML.getElementsByTagName("mobile")[0].textContent);
+			   $("#searchModal").modal("show");
+		   }
+		};
+		var id = parseInt($('#searchUserId').val());
+		var data = '<?xml version=\"1.0\" encoding=\"utf-8\"?>';
+		data = data + '<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">';
+		data = data + '<soap:Body xmlns:m="http://SOAP.WebService.functional/">' +
+				'<m:getUser> +' +
+				'<m:userId>' + id + '</m:userId>' +
+				'</m:getUser>' +
+				'</soap:Body>' +
+				'</soap:Envelope>';
+		xhr.send(data);
+	}
 	
 </script>
 
 <div class="container">
 <div class="row">
-		<div class="span9">
+		<div class="span4">
 			<h2 style="color:#1914aa"><strong>权限: 1->普通用户,2->管理员</strong></h2>
 			</div>
 	<div class="span3">
 			<button class="btn btn-primary btn-success" onclick="showAdd()">添加用户</button>
 	</div>
-	<div class="span3">
-		<input class="">
+	<div class="span5">
+		<form class="bs-example bs-example-form" role="form">
+			<div class="input-group">
+				<input id="searchUserId" type="text" class="form-control" value="请输入要搜索用户的id">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" onclick="test()">
+							搜索
+						</button>
+					</span>
+			</div><!-- /input-group -->
+		</form>
 	</div>
 </div>
 <table class="table">
@@ -228,6 +274,28 @@
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
+
+<div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">用户信息</h4>
+			</div>
+			<div class="modal-body">
+				用户名：<h4 id="s_username"></h4>
+				密码：<h4 id="s_password"></h4>
+				余额：<h4 id="s_coin"></h4>
+				权限：<h4 id="s_role"></h4>
+				邮箱：<h4 id="s_email"></h4>
+				电话：<h4 id="s_tel"></h4>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
 
 <!-- /.container -->
 <div id="add-form" class="modal fade">

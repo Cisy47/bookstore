@@ -6,8 +6,11 @@
       <root url="jar://$PROJECT_DIR$/lib/javax.jms.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/javax.ejb.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/javax.resource.jar!/" />
+      <root url="file://$PROJECT_DIR$/lib/axis" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-all-1.9.11.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/axis" recursive="false" />
   </library>
 </component>

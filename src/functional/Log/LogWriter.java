@@ -17,7 +17,7 @@ public class LogWriter {
         SimpleDateFormat s1= new SimpleDateFormat("yyyy_MM_dd");
         SimpleDateFormat s2=new SimpleDateFormat("HH:mm:ss");
         String d=s1.format(new Date());
-        String fileName="D:\\47\\junior\\WEB2\\functional.Log\\"+d+".txt";
+        String fileName="D:\\47\\junior\\WEB2\\Log\\"+d+".txt";
         try{
             File file=new File(fileName);
             if(!file.exists())

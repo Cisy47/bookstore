@@ -97,6 +97,7 @@
                 }
             }
         })
+        //showBook();
 
     });
 </script>

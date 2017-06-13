@@ -7,8 +7,8 @@ XeditService.prototype = new Xedit2ServiceBase;
 
 XeditService.prototype.getUser = function(id){
     var param=new SOAPClientParameters;
-    param.add('id',id);
-    var result = SOAPClient.invode(this._url,"getUser",param,false);
+    param.add('userId',id);
+    var result = SOAPClient.invoke(this._url,"getUser",param,false);
     return result;
 }
 

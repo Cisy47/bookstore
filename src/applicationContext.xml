@@ -5,6 +5,8 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
          http://www.springframework.org/schema/data/mongo
@@ -14,9 +16,14 @@
          http://www.springframework.org/schema/aop
          http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
          http://www.springframework.org/schema/context
-         http://www.springframework.org/schema/context/spring-context.xsd">
+         http://www.springframework.org/schema/context/spring-context.xsd
+         http://cxf.apache.org/jaxws
+        http://cxf.apache.org/schemas/jaxws.xsd
+        http://cxf.apache.org/transports/http/configuration
+        http://cxf.apache.org/schemas/configuration/http-conf.xsd">
 
     <context:component-scan base-package="functional.Log"></context:component-scan>
+    <context:component-scan base-package="functional.WebService"></context:component-scan>
     <aop:aspectj-autoproxy/>
 
     <!--MongoDB 配置 -->
@@ -60,6 +67,15 @@
             <value>classpath:/hibernate.cfg.xml</value>
         </property>
     </bean>
+
+    <!--cxf-->
+    <import resource="classpath:META-INF/cxf/cxf.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+    <bean id="userServiceBean" class="functional.WebService.SOAP.UserServiceImpl">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+    <jaxws:endpoint id="UserService" implementor="#userServiceBean" address="/UserService"/>
 
     <!--JMS-->
     <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
@@ -168,8 +184,12 @@
     <bean id="searchBookAction" class="method.SearchBookAction" scope="prototype">
         <property name="bookBiz" ref="BookBiz"/>
     </bean>
-    <bean id="showCartAction" class="method.CartAction" scope="session">
+    <!--bean id="showCartAction" class="method.CartAction" >
         <property name="bookBiz" ref="BookBiz"/>
+    </bean-->
+    <!--context:component-scan base-package="method" /-->
+    <bean id="cartAction" class="method.CartAction" scope="singleton">
+       <property name="bookBiz" ref="BookBiz"/>
     </bean>
     <bean id="showAllBookAction" class="method.ShowAllBookAction" scope="singleton">
         <property name="bookBiz" ref="BookBiz"/>

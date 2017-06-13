@@ -3,13 +3,9 @@ package method;
 import Biz.BookBiz;
 import Biz.UserBiz;
 import Entity.Book;
-import Entity.User;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import org.apache.struts2.ServletActionContext;
-import security.CategoryPermission;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -56,7 +52,8 @@ public class ShowAllBookAction extends ActionSupport{
     public String showCategoryBook(){
         ActionContext context = ActionContext.getContext();
         Map<String, Object> parameters = context.getParameters();
-        Map<String, Object> hSession = context.getSession();
+        category = ((String[])parameters.get("category"))[0];
+        /*Map<String, Object> hSession = context.getSession();
         User user = (User)hSession.get("user");
         if(user==null){
             HttpServletRequest request = (HttpServletRequest)context.get(ServletActionContext.HTTP_REQUEST);
@@ -72,7 +69,7 @@ public class ShowAllBookAction extends ActionSupport{
             System.setSecurityManager(manager);
         }
         manager.checkPermission(p);
-        System.setSecurityManager(null);
+        System.setSecurityManager(null);*/
         bookArray = bookBiz.getAllBook(category);
         return SUCCESS;
     }

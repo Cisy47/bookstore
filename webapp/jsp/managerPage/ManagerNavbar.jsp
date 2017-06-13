@@ -22,10 +22,10 @@
                         <a href="../normalPage/Center.jsp">用户界面</a>
                     </li>
                     <li>
-                        <a href="../showUser">管理用户</a>
+                        <a href="showUser">管理用户</a>
                     </li>
                     <li>
-                        <a href="../showBookToManager">管理书籍</a>
+                        <a href="showBookToManager">管理书籍</a>
                     </li>
                     <li>	
                     	<a href="../normalPage/StatisticsSaleModel.jsp">销售统计</a>

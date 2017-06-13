@@ -21,6 +21,8 @@
 <body>
 
 <%@include file="ManagerNavbar.jsp" %>
+<script type="text/javascript" src="../dict/js/soap.js"></script>
+<script type="text/javascript" src="../dict/js/soapclient.js"></script>
 
 <script type="text/javascript">
     $(function(){
@@ -33,6 +35,7 @@
             });
         }
         showUser();
+
     });
 </script>
 

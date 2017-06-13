@@ -178,10 +178,10 @@
             <result name="finish" type="json">
                 <param name="root">content</param>
             </result>
-            <result name="continue">normalPage/StatisticsByDateModel.jsp</result>
+            <result name="continue">/normalPage/StatisticsByDateModel.jsp</result>
         </action>
 		<action name="showBookToManager" class="showBookToManagerAction">
-			<result name="success">noAuth/BookModel.jsp</result>
+			<result name="success">BookModel.jsp</result>
 		</action>
 
 	</package>

@@ -14,16 +14,35 @@ public class LogAspect {
     @Autowired
     private LogWriter log;
 
-    @Pointcut("execution(* functional.Message.*.onMessage*(..))")
+    @Pointcut("execution(* method.*.*(..))")
+    private void every(){}
+
+    @Before("every()")
+    public void Log(){
+
+    }
+
+    @Pointcut("execution(* functional.Message.*.*(..))")
     private void orderReceiveMethod() {
     }
 
-    @Pointcut("execution(* Biz.OrderBizImp*.createOrderFromShopCart*(..))")
+    @Pointcut("execution(* Biz.OrderBizImp.createOrder*(..))")
     private void orderProcessMethod(){
 
     }
 
-    @Pointcut("execution(* Dao.*.update*(..))&&execution(* Dao.*.remove*(..))&&execution(* Dao.*.add*(..))")
+    @Pointcut("execution(* Dao.*.*(..))")
+    private void Dao(){}
+
+    @Before("Dao()")
+    public void DaoLog(JoinPoint call){
+        String className = call.getTarget().getClass().getName();
+        String methodName = call.getSignature().getName();
+        String str = "Dao-Invoke "+className+":"+methodName;
+        log.write(str);
+    }
+
+    @Pointcut("execution(* update*(..))&&execution(* Dao.*.remove*(..))&&execution(* Dao.*.add*(..))")
     private void daoChangeMethod(){
     }
 
@@ -44,13 +63,13 @@ public class LogAspect {
     }
 
     // 针对指定的切入点表达式选择的切入点应用前置通知
-    @Before("orderReceiveMethod()&&args(user)")
-    public void before(JoinPoint call, User user) {
+    @Before("orderReceiveMethod()")
+    public void before(JoinPoint call) {
         String className = call.getTarget().getClass().getName();
         String methodName = call.getSignature().getName();
         System.out.println("【前置通知（Annotation）】:" + className + "类的" + methodName
                 + "方法开始了...");
-        String str = "Invoke "+className+":"+methodName+"\nuser"+user.getUsername()+" 订单已收到！";
+        String str = "Invoke "+className+":"+methodName+"\n"+" 订单已收到！";
         log.write(str);
     }
 

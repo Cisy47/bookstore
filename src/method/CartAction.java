@@ -1,3 +1,4 @@
+
 package method;
 
 import Biz.BookBiz;
@@ -13,30 +14,36 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * Created by 47 on 2016/6/9.
+ * Created by 47 on 2017/5/24.
  */
+
 public class CartAction extends ActionSupport {
     ArrayList<ShopCartItem> arrayList;
-    HashMap<Integer,Integer> cartSearch;
-    HashMap<Book,Integer> cart;
+    HashMap<Integer, Integer> cartSearch;
+    HashMap<Book, Integer> cart;
     private String content;
     private BookBiz bookBiz;
 
     public ArrayList<ShopCartItem> getArrayList() {
         return arrayList;
     }
+
     public void setArrayList(ArrayList<ShopCartItem> arrayList) {
         this.arrayList = arrayList;
     }
+
     public String getContent() {
         return content;
     }
+
     public void setContent(String content) {
         this.content = content;
     }
+
     public BookBiz getBookBiz() {
         return bookBiz;
     }
+
     public void setBookBiz(BookBiz bookBiz) {
         this.bookBiz = bookBiz;
     }
@@ -57,19 +64,19 @@ public class CartAction extends ActionSupport {
         this.cart = cart;
     }
 
-    public String execute() throws Exception{
+    public String execute() throws Exception {
         ActionContext context = ActionContext.getContext();
         Map<String, Object> parameters = context.getParameters();
         Map<String, Object> hSession = context.getSession();
         JSONObject json = new JSONObject();
         HashMap<Integer, Integer> hashMap;
-        if (hSession.get("shopCart") == null ){
+        if (hSession.get("shopCart") == null) {
             content = "购物车为空";
             return "finish";
-        }else{
-            hashMap = (HashMap)hSession.get("shopCart");
+        } else {
+            hashMap = (HashMap) hSession.get("shopCart");
         }
-        if (hashMap.size() == 0){
+        if (hashMap.size() == 0) {
             content = "购物车为空";
             return "finish";
         }
@@ -78,60 +85,64 @@ public class CartAction extends ActionSupport {
         return "test";
     }
 
-    public String showCart() throws Exception{
+    public String showCart() throws Exception {
         ActionContext context = ActionContext.getContext();
 
-        Map parameters = (Map)context.get("request");
+        Map parameters = (Map) context.get("request");
         //JSONObject json = new JSONObject();
-        if (cart==null || cart.size()==0 ) {
+        if(context.getSession().containsKey("Cart")) {
+            cart = (HashMap<Book, Integer>) context.getSession().get("Cart");
+        }
+        if (cart == null || cart.size() == 0) {
             content = "购物车为空";
             return "finish";
         }
         updateList();
-        parameters.put("list",arrayList);
-        context.getSession().put("cart",cartSearch);
+        parameters.put("list", arrayList);
+        //context.getSession().put("cart", cartSearch);
         return SUCCESS;
     }
 
-    public String addBook() throws Exception{
+    public String addBook() throws Exception {
         ActionContext context = ActionContext.getContext();
         Map<String, Object> parameters = context.getParameters();
         JSONObject json = new JSONObject();
-        if (parameters.get("bookId") == null){
+        if (parameters.get("bookId") == null) {
             json.put("status", "Error");
             json.put("message", "参数为空！");
             content = json.toString();
             return SUCCESS;
         }
-        int bookId = Integer.parseInt(((String[])parameters.get("bookId"))[0]);
+        int bookId = Integer.parseInt(((String[]) parameters.get("bookId"))[0]);
         int bookNum;
         Book b = bookBiz.getBook(bookId);
-        if(bookBiz==null){
-            bookNum=0;
+        if (bookBiz == null) {
+            bookNum = 0;
         }
-        if (parameters.get("bookNum") == null){
+        if (parameters.get("bookNum") == null) {
             bookNum = 1;
-        }else {
+        } else {
             bookNum = Integer.parseInt(((String[]) parameters.get("bookNum"))[0]);
         }
-        if(cart==null){
+        if (cart == null) {
             cart = new HashMap<Book, Integer>();
             cartSearch = new HashMap<Integer, Integer>();
         }
-        if (cartSearch.containsKey(bookId)){
+        if (cartSearch.containsKey(bookId)) {
             int num = cart.get(bookId) + bookNum;
             if (num > 0) {
                 cartSearch.put(bookId, num);
-                cart.put(b,num);
-            }
-            else {
+                cart.put(b, num);
+            } else {
                 cartSearch.remove(bookId);
                 cart.remove(b);
             }
-        }else{
+        } else {
             cartSearch.put(bookId, bookNum);
-            cart.put(b,bookNum);
+            cart.put(b, bookNum);
         }
+        context.getSession().put("cart",cartSearch);
+        context.getSession().put( "Cart",cart);
         json.put("status", "Success");
         json.put("message", "添加成功！");
         setContent(json.toString());
@@ -139,15 +150,15 @@ public class CartAction extends ActionSupport {
     }
 
     private void updateList() {
-        if(arrayList==null){
-            arrayList=new ArrayList<ShopCartItem>();
+        if (arrayList == null) {
+            arrayList = new ArrayList<ShopCartItem>();
         }
         arrayList.clear();
         ShopCartItem shopCartItem = new ShopCartItem();
         Iterator iter = cart.entrySet().iterator();
         while (iter.hasNext()) {
             Map.Entry entry = (Map.Entry) iter.next();
-            Book bk= (Book) entry.getKey();
+            Book bk = (Book) entry.getKey();
             int num = (Integer) entry.getValue();
             shopCartItem.setBook(bk);
             shopCartItem.setBookNum(num);
