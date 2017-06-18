@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -17,7 +18,7 @@ public class LogWriter {
         SimpleDateFormat s1= new SimpleDateFormat("yyyy_MM_dd");
         SimpleDateFormat s2=new SimpleDateFormat("HH:mm:ss");
         String d=s1.format(new Date());
-        String fileName="D:\\47\\junior\\WEB2\\Log\\"+d+".txt";
+        String fileName= Paths.get("Log")+d+".txt";
         try{
             File file=new File(fileName);
             if(!file.exists())

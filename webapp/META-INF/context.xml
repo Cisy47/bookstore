@@ -2,6 +2,6 @@
 <Context>
     <Realm className="org.apache.catalina.realm.JAASRealm"
            appName="LoginTest"
-           userClassNames="UserPrincipal"
-           roleClassNames="RolePrincipal" />
+           userClassNames="LoginModule.UserPrincipal"
+           roleClassNames="LoginModule.RolePrincipal" />
 </Context>

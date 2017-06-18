@@ -27,6 +27,22 @@
             }
         });
     }
+    function getBookDetail(bookId) {
+        $.ajax({
+            url:"http://localhost:8080/rest/BookService/bookDetail/"+bookId,
+            method:"GET",
+            contentType:"application/json",
+            success:function(data){
+                $("#s_bookname").html(data.name);
+                $("#s_author").html(data.author);
+                $("#s_publisher").html(data.publisher);
+                $("#s_price").html(data.price);
+                $("#s_stock").html(data.stock);
+                $("#s_des").html(data.desc);
+                $("#searchModal").modal("show");
+            }
+        });
+    }
     $(function(){
         $("#search").on("click", function(){
             $.ajax({
@@ -44,23 +60,33 @@
                     });
                 }
             });
-            /*var id =$("#search-content").val().toString();
-            $.ajax({
-                url:"localhost:8080/Book/"+id,
-                success: function(data){
-                    $("#books").html(data);
-                }
-            })*/
         });
         $("div#hidden").hide();
-        $('[data-toggle="popover"]').popover({
+        /*$('[data-toggle="popover"]').popover({
             html: true,
             title: '书籍详情',
             trigger:'hover focus',
             content: function(){
                 return $("div#hidden").html();
             }
-        })
+        })*/
+        $("#searchDes").on("click",function(){
+            d = $("#search-content").val();
+            $.ajax({
+                url:"http://localhost:8080/rest/BookService/searchBook?desc="+d,
+                method:"POST",
+                success: function(data){
+                    //var cc = jQuery.parseJSON(data);
+                    for(var i=1;i<data.length+1;i++){
+                        b = data[i-1];
+                        document.getElementById(i).style.display="";
+                        $("#des_bookname"+i).html("书名："+b.name);
+                        $("#des_des"+i).html("简介："+b.desc);
+                    }
+                    $("#descModal").modal("show");
+                }
+            });
+        });
     });
 </script>
 
@@ -78,7 +104,7 @@
         <form id="search-form">
             <div class = "input-group">
                 <input id="search-content" type="text" class="form-control" placefolder="请输入搜索的关键字"/>
-                <span id="search"  class="input-group-addon glyphicon glyphicon-search"></span>
+                <span id="searchDes"  class="input-group-addon glyphicon glyphicon-search"></span>
             </div>
         </form>
     </div>
@@ -117,6 +143,7 @@
                                 <%--<td class="no-border label-name"><strong>类别:</strong></td>--%>
                                 <%--<td class="no-border"><%=bookArray[i].getType() %>--%>
 	                            	<span class="pull-right">
+                                        <button class="btn btn-success" onclick="getBookDetail(<%=bookArray[i].getId() %>)"><span class="glyphicon glyphicon-hand-up"></span></button>
 	                            		<button class="btn btn-success" onclick="addBook(<%=bookArray[i].getId() %>)"><span class="glyphicon glyphicon-shopping-cart"></span></button>
 	                            	</span>
                                 <% if (shopCart != null && shopCart.containsKey(bookArray[i].getId())) {%>
@@ -195,3 +222,51 @@
         </table>
     </div>
 </div><!-- /.modal -->
+
+<div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">书籍信息</h4>
+            </div>
+            <div class="modal-body">
+                书名：<h4 id="s_bookname"></h4>
+                作者：<h4 id="s_author"></h4>
+                出版社：<h4 id="s_publisher"></h4>
+                价格：<h4 id="s_price"></h4>
+                库存：<h4 id="s_stock"></h4>
+                简介：<h4 id="s_des"></h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<div class="modal fade" id="descModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" >搜索结果</h4>
+            </div>
+            <div class="modal-body" id="1" >
+                <h4 id="des_bookname1" ></h4>
+                <h4 id="des_des1" ></h4>
+            </div>
+            <div class="modal-body" id="2" >
+                <h4 id="des_bookname2" ></h4>
+                <h4 id="des_des2" ></h4>
+            </div>
+            <div class="modal-body" id="3" >
+                <h4 id="des_bookname3" ></h4>
+                <h4 id="des_des3" ></h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>

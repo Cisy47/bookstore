@@ -24,6 +24,7 @@
 
     <context:component-scan base-package="functional.Log"></context:component-scan>
     <context:component-scan base-package="functional.WebService"></context:component-scan>
+    <context:component-scan base-package="functional.Lucene"/>
     <aop:aspectj-autoproxy/>
 
     <!--MongoDB 配置 -->

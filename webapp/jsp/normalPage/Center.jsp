@@ -14,7 +14,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>书目大厅</title>
     <link href="../dict/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="../dict/jquery-1.11.2.min.js"></script>
+    <!--script type="text/javascript" src="../dict/jquery-1.11.2.min.js"></script-->
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="../dict/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../dict/jquery.json.min.js"></script>
     <!--script type="text/javascript" src="../dict/bootstrap-modal.js"></script-->
@@ -96,9 +97,22 @@
                     categoryForm(obj[i].value);
                 }
             }
-        })
+        });
         //showBook();
-
+        /*$.ajax({
+            url:"http://localhost:8080/rest/BookService/searchBook?desc=算法",
+            method:"POST",
+            success: function(data){
+                //var cc = jQuery.parseJSON(data);
+                for(var i=1;i<data.length+1;i++){
+                    b = data[i-1];
+                    document.getElementById(i).style.display="";
+                    $("#des_bookname"+i).html(b.name);
+                    $("#des_des"+i).html(b.desc);
+                }
+                $("#descModal").modal("show");
+            }
+        });*/
     });
 </script>
 

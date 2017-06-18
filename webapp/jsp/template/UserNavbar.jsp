@@ -16,12 +16,12 @@
         loadProperties(lan);
     }
     function loadProperties(lan){
-        var lan=lan||navigator.language;
+        //var lan=lan||navigator.language;
         jQuery.i18n.properties({// 加载资浏览器语言对应的资源文件
-            name:'string'+'_'+lan, // 资源文件名称
+            name:'string_'+lan, // 资源文件名称
             path:'../resource/i18n/', // 资源文件路径
             mode:'map', // 用 Map 的方式使用资源文件中的值
-            language:lan,
+            //language:lan,
             callback: function() {// 加载成功后设置显示内容
                 $("[data-localize]").each(function() {
                     var elem =$(this);
